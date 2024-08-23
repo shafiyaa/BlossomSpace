@@ -3,7 +3,10 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://shafiyaa.github.io/BlossomSpace",
   "scripts": {
+    "predeploy": "vite build",
+    "deploy": "gh-pages -d dist",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
@@ -11,6 +14,7 @@
   },
   "dependencies": {
     "framer-motion": "^11.3.24",
+    "gh-pages": "^6.1.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.52.2",
