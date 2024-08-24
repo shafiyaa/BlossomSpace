@@ -13,11 +13,18 @@ const Navbar = ({ home }) => {
   const [open, isOpen] = useState(false);
   document.body.classList.remove('overflow-hidden');
 
-  let itemCount = JSON.parse(localStorage.getItem('cart'));
-  itemCount = itemCount.map((item) => item.quantity);
-  itemCount = itemCount.reduce((acc, curr) => {
-    return acc + curr;
-  }, 0);
+  let itemCount = [];
+  try {
+    let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+    if (Array.isArray(cartItems)) {
+      itemCount = cartItems.map((item) =>
+        item && typeof item.quantity === 'number' ? item.quantity : 0
+      );
+    }
+  } catch (error) {
+    console.error('Error parsing cart data:', error);
+  }
+  itemCount = itemCount.reduce((acc, curr) => acc + curr, 0);
 
   return (
     <div className="relative font-ptSerif">
@@ -74,7 +81,8 @@ const Navbar = ({ home }) => {
             <div className="flex items-center">
               <PiShoppingCartSimple className="text-3xl" />
               <div className="text-sm">
-                Cart <span className="text-sm">{itemCount}</span>
+                Cart
+                <span className="text-sm">{itemCount}</span>
               </div>
             </div>
           </div>
